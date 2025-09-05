@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fw-bold text-danger mb-4">Admin Dashboard</h2>
+<div class="card shadow-lg border-0">
+  <div class="card-body">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Form Status</th>
+          <th>Payment</th>
+          <th>Registered</th>
+          <th>Form Updated</th>
+          <th>Payment Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        <tr>
+          <td>{{ s.name }}</td>
+          <td>{{ s.email }}</td>
+          <td><span class="badge bg-info">{{ s.form_status }}</span></td>
+          <td><span class="badge bg-warning">{{ s.payment_status }}</span></td>
+          <td>{{ s.registered_at }}</td>
+          <td>{{ s.form_updated_at }}</td>
+          <td>{{ s.payment_updated_at }}</td>
+          <td>
+            <div class="btn-group">
+
+              <!-- Accept -->
+              <form method="post" action="{{ url_for('admin_update', student_id=s.id, action='accept') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-success btn-sm">Accept</button>
+              </form>
+
+              <!-- Reject -->
+              <form method="post" action="{{ url_for('admin_update', student_id=s.id, action='reject') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+              </form>
+
+              <!-- Payment -->
+              <form method="post" action="{{ url_for('admin_update', student_id=s.id, action='payment') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-primary btn-sm">Payment</button>
+              </form>
+
+              <!-- Remove -->
+              <form method="post" action="{{ url_for('admin_update', student_id=s.id, action='remove') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-dark btn-sm">Remove</button>
+              </form>
+
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

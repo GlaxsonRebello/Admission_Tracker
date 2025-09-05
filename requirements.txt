@@ -1,0 +1,7 @@
+flask
+flask-mysqldb
+flask-bcrypt
+flask-wtf
+flask-limiter
+flask-limiter.util
+flask-talisman

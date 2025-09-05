@@ -1,0 +1,14 @@
+<table class="table">
+    <thead><tr><th>Path</th><th>Hits</th><th>First Seen</th><th>Last Seen</th></tr></thead>
+    <tbody>
+      {% for r in rows %}
+        <tr>
+          <td>{{ r.path }}</td>
+          <td>{{ r.hits }}</td>
+          <td>{{ r.first_seen }}</td>
+          <td>{{ r.last_seen }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  

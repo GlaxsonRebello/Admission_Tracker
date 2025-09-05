@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="fw-bold text-primary mb-4">Student Dashboard</h2>
+<div class="card shadow-sm p-4">
+  {% if admission %}
+    <h5>Admission Status</h5>
+    <ul class="list-group">
+      <li class="list-group-item">Form Status: <strong>{{ admission.form_status }}</strong></li>
+      <li class="list-group-item">Payment Status: <strong>{{ admission.payment_status }}</strong></li>
+      <li class="list-group-item">Registered At: {{ admission.registered_at }}</li>
+      <li class="list-group-item">Last Update: {{ admission.form_updated_at or 'N/A' }}</li>
+    </ul>
+  {% else %}
+    <p>You have not applied for admission yet.</p>
+    
+    <!-- Apply button as secure POST form -->
+    <form method="POST" action="{{ url_for('apply_admission') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" class="btn btn-primary">Apply Now</button>
+    </form>
+    
+  {% endif %}
+</div>
+{% endblock %}
